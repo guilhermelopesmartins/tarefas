@@ -1,5 +1,35 @@
 {
+  "noteSections": [
+    "Seção 1",
+    "Seção 2",
+    "Seção 3",
+    "Criar nova seção"
+  ],
+  "kanbanSections": [
+    "Platform Launch",
+    "Marketing Plan",
+    "Roadmap",
+    "Create New Board"
+  ],
   "boards": [
+    {
+      "name": "Seção 1",
+      "isActive": false,
+      "columns": [
+      ]
+    },
+    {
+        "name": "Seção 2",
+        "isActive": false,
+        "columns": [
+          ]
+        },
+        {
+          "name": "Seção 3",
+          "isActive": false,
+          "columns": [
+          ]
+        },
     {
       "name": "Platform Launch",
       "isActive" : false,

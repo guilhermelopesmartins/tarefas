@@ -27,6 +27,11 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
 
   const boards = useSelector((state) => state.boards);
 
+  const noteSections = boards.filter(board => !['Platform Launch', 'Marketing Plan', 'Roadmap', 'Create New Board'].includes(board.name));
+
+  const kanbanSections = boards.filter(board => ['Platform Launch', 'Marketing Plan', 'Roadmap', 'Create New Board'].includes(board.name));
+
+
   const toggleSidebar = () => {
     setIsSideBarOpen((curr) => !curr);
   };
@@ -44,92 +49,87 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
           {/* reWrite modal  */}
 
           {isSideBarOpen && (
-            <div className=" bg-white  dark:bg-[#2b2c37]    w-full   py-4 rounded-xl" style={{overflowY: 'auto', height: '600px'}}>
-              <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 ">
-                SEÇÕES DE NOTAS ({boards?.length})
-              </h3>
-              <div>
-                  {boards.map((board, index) => (
-                    <div
-                      className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white  ${
-                        board.isActive &&
-                        " bg-[#635fc7] rounded-r-full text-white mr-8 "
-                      } `}
-                      key={index}
-                      onClick={() => {
-                        dispatch(boardsSlice.actions.setBoardActive({ index }));
-                      }}
-                    >
-                      <img src={boardIcon} className="  filter-white  h-4 " />{" "}
-                      <p className=" text-lg font-bold ">{board.name}</p>
-                    </div>
-                  ))}
+  <div className="bg-white dark:bg-[#2b2c37] w-full py-4 rounded-xl" style={{ overflowY: 'auto', height: '600px' }}>
+    <h3 className="dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8">
+      SEÇÕES DE NOTAS ({noteSections.length})
+    </h3>
+    <div>
+      {noteSections.map((board, index) => (
+        <div
+          className={`flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white ${board.isActive && "bg-[#635fc7] rounded-r-full text-white mr-8"
+            } `}
+          key={index}
+          onClick={() => {
+            dispatch(boardsSlice.actions.setBoardActive({ index }));
+          }}
+        >
+          <img src={boardIcon} className="filter-white h-4" />{" "}
+          <p className="text-lg font-bold">{board.name}</p>
+        </div>
+      ))}
 
-                  <div
-                    className=" flex  items-baseline space-x-2  mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white  "
-                    onClick={() => {
-                      setIsBoardModalOpen(true);
-                    }}
-                  >
-                    <img src={boardIcon} className="   filter-white  h-4 " />
-                    <p className=" text-lg font-bold  ">Create New Board </p>
-                  </div>
-                </div>
-              <h3 className=" dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8 ">
-                QUADROS KANBAN ({boards?.length})
-              </h3>
+      <div
+        className="flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white  "
+        onClick={() => {
+          setIsBoardModalOpen(true);
+        }}
+      >
+        <img src={boardIcon} className="filter-white h-4" />
+        <p className="text-lg font-bold">Criar nova seção</p>
+      </div>
+    </div>
+    <h3 className="dark:text-gray-300 text-gray-600 font-semibold mx-4 mb-8">
+      QUADROS KANBAN ({kanbanSections.length})
+    </h3>
 
-              <div className="  dropdown-borad flex flex-col h-[70vh]  justify-between ">
-                <div>
-                  {boards.map((board, index) => (
-                    <div
-                      className={` flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white  ${
-                        board.isActive &&
-                        " bg-[#635fc7] rounded-r-full text-white mr-8 "
-                      } `}
-                      key={index}
-                      onClick={() => {
-                        dispatch(boardsSlice.actions.setBoardActive({ index }));
-                      }}
-                    >
-                      <img src={boardIcon} className="  filter-white  h-4 " />{" "}
-                      <p className=" text-lg font-bold ">{board.name}</p>
-                    </div>
-                  ))}
+    <div className="dropdown-borad flex flex-col h-[70vh] justify-between">
+      <div>
+      {kanbanSections.map((board, index) => (
+          <div
+            className={`flex items-baseline space-x-2 px-5 mr-8 rounded-r-full duration-500 ease-in-out py-4 cursor-pointer hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white dark:hover:text-[#635fc7] dark:text-white ${board.isActive && "bg-[#635fc7] rounded-r-full text-white mr-8"
+              } `}
+            key={index}
+            onClick={() => {
+              dispatch(boardsSlice.actions.setBoardActive({ index }));
+            }}
+          >
+            <img src={boardIcon} className="filter-white h-4" />{" "}
+            <p className="text-lg font-bold">{board.name}</p>
+          </div>
+        ))}
 
-                  <div
-                    className=" flex  items-baseline space-x-2  mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white  "
-                    onClick={() => {
-                      setIsBoardModalOpen(true);
-                    }}
-                  >
-                    <img src={boardIcon} className="   filter-white  h-4 " />
-                    <p className=" text-lg font-bold  ">Create New Board </p>
-                  </div>
-                </div>
+        <div
+          className="flex items-baseline space-x-2 mr-8 rounded-r-full duration-500 ease-in-out cursor-pointer text-[#635fc7] px-5 py-4 hover:bg-[#635fc71a] hover:text-[#635fc7] dark:hover:bg-white  "
+          onClick={() => {
+            setIsBoardModalOpen(true);
+          }}
+        >
+          <img src={boardIcon} className="filter-white h-4" />
+          <p className="text-lg font-bold">Create New Board </p>
+        </div>
+      </div>
 
-                <div className=" mx-2  p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">
-                  <img src={lightIcon} alt="sun indicating light mode" />
+      <div className="mx-2 p-4 relative space-x-2 bg-slate-100 dark:bg-[#20212c] flex justify-center items-center rounded-lg">
+        <img src={lightIcon} alt="sun indicating light mode" />
 
-                  <Switch
-                    checked={darkSide}
-                    onChange={toggleDarkMode}
-                    className={`${
-                      darkSide ? "bg-[#635fc7]" : "bg-gray-200"
-                    } relative inline-flex h-6 w-11 items-center rounded-full`}
-                  >
-                    <span
-                      className={`${
-                        darkSide ? "translate-x-6" : "translate-x-1"
-                      } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-                    />
-                  </Switch>
+        <Switch
+          checked={darkSide}
+          onChange={toggleDarkMode}
+          className={`${darkSide ? "bg-[#635fc7]" : "bg-gray-200"
+            } relative inline-flex h-6 w-11 items-center rounded-full`}
+        >
+          <span
+            className={`${darkSide ? "translate-x-6" : "translate-x-1"
+              } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+          />
+        </Switch>
 
-                  <img src={darkIcon} alt="moon indicating dark mode" />
-                </div>
-              </div>
-            </div>
-          )}
+        <img src={darkIcon} alt="moon indicating dark mode" />
+      </div>
+    </div>
+  </div>
+)}
+
 
           {/* Sidebar hide/show toggle */}
           {isSideBarOpen ? (
@@ -151,7 +151,7 @@ function Sidebar({ isSideBarOpen, setIsSideBarOpen }) {
           )}
         </div>
       </div>
-
+      
       {isBoardModalOpen && (
         <AddEditBoardModal
           type="add"
