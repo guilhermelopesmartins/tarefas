@@ -4,6 +4,7 @@ const noteController = require("./controller/noteController");
 const sectionController = require("./controller/sectionController");
 const boardController = require("./controller/boardController");
 const columnController = require("./controller/columnController");
+const cardController = require("./controller/cardController");
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swaggerConfig');
 const cors = require("cors"); 
@@ -62,6 +63,17 @@ app.get('/columns/:id', columnController.getFromBoard);
 app.put('/columns', columnController.updateColumn);
 
 app.delete('/columns/:id', columnController.deleteColumn);
+
+//CARDS ROUTES
+app.get('/cards', cardController.getAllCards);
+
+app.post('/cards', cardController.createCard);
+
+app.get('/cards/:id', cardController.getFromColumn);
+
+app.put('/cards', cardController.updateCard);
+
+app.delete('/cards/:id', cardController.deleteCard);
 
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

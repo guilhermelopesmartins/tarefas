@@ -18,11 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     titulo: DataTypes.STRING,
     descricao: DataTypes.STRING,
     checklist: DataTypes.JSON,
-    data_criacao: DataTypes.DATE,
     data_limite: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Cartao',
+    schema: 'tarefas',
+    freezeTableName: true
   });
   return Cartao;
 };
