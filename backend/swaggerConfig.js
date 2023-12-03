@@ -69,10 +69,31 @@ const options = {
               type: 'integer'
             }
           }
+        },
+        Cards: {
+          type: 'object',
+          properties: {
+            id_raia: {
+              type: 'integer'
+            },
+            titulo: {
+              type: 'string'
+            },
+            descricao: {
+              type: 'string'
+            },
+            checklist: {
+              type: 'object'
+            },
+            data_limite: {
+              type: 'string',
+              default: 'yyyy-mm-dd'
+            }
+          }
         }
       }
     },
-    apis: ['./controller/noteController.js', './controller/sectionController.js', './controller/boardController.js', './controller/columnController.js'],
+    apis: ['./controller/noteController.js', './controller/sectionController.js', './controller/boardController.js', './controller/columnController.js', './controller/cardController.js'],
   };
 
 const swaggerSpec = swaggerJSDoc(options);
